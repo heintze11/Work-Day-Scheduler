@@ -1,5 +1,15 @@
 let timeBlocks = $("textarea");
 let buttonParent = document.querySelector(".container");
+// pull from local storage on page load
+let old9 = localStorage.getItem("9AM");
+let old10 = localStorage.getItem("10AM");
+let old11 = localStorage.getItem("11AM");
+let old12 = localStorage.getItem("12PM");
+let old13 = localStorage.getItem("1PM");
+let old14 = localStorage.getItem("2PM");
+let old15 = localStorage.getItem("3PM");
+let old16 = localStorage.getItem("4PM");
+let old17 = localStorage.getItem("5PM");
 
 
 // Add time and date at top of page using moment.js
@@ -7,7 +17,7 @@ function time() {
     let today = moment();
     $("#currentDay").text(today.format("dddd, MMM Do"));
 };
-time();
+
 
 //compare current time with timeblock time
 //create for loop to go through each timeblock
@@ -27,31 +37,14 @@ function checkTime() {
         } else{
             $(timeBlocks[i]).addClass("present");
         }
-              
     }
 }
-checkTime()
 
-//set interval to check the time every x mins to update colors
+//set interval to check the time every 1 mins to update colors
 setInterval(function(){
     time();
     checkTime();
 }, 60000);
-
-// add functionality to type in hour blocks and save text
-//to local storage and on page
-    // save button event listener. 
-    //Add text from specific textarea to local storage.
-    //Display back to page
-let old9 = localStorage.getItem("9AM");
-let old10 = localStorage.getItem("10AM");
-let old11 = localStorage.getItem("11AM");
-let old12 = localStorage.getItem("12PM");
-let old13 = localStorage.getItem("1PM");
-let old14 = localStorage.getItem("2PM");
-let old15 = localStorage.getItem("3PM");
-let old16 = localStorage.getItem("4PM");
-let old17 = localStorage.getItem("5PM");
 
 function display(){
     // get from local storage and post in correct Textarea
@@ -83,34 +76,15 @@ function display(){
     if (old17 != ""){
         timeBlocks[8].textContent = old17;
     }
-    
-
 }
-display();
 
-
+// add event listener to all save buttons
+    //save data to local storage
 $(".saveBtn").on("click", function(event){
     localStorage.setItem(event.target.parentNode.children[0].innerText, event.target.previousElementSibling.value);
     display();
 })
 
-// buttonParent.addEventListener("click", function(event){
-//     localStorage.setItem(event.path[1].children[0].innerText, event.target.previousElementSibling.value);
-
-//     //find where time is in logs
-//     console.log(event.path[1].children[0].innerText);
-
-//     //get the data from the text field
-//     console.log(event.target.previousElementSibling.value);
-
-
-//     // save();
-// })
-
-//create event listener around the parent
-//from event listener use event keyword
-//add id to buttons for event listener
-//textarea.value of .sibling
-
-
-//pull from local storage to print to screen
+time();
+checkTime();
+display();
